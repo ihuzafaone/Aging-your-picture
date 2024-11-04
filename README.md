@@ -1,59 +1,42 @@
-Aging your picture: Face Aging with GANs
-it is a deep learning model for face aging, using CycleGAN to translate young faces to older versions and vice versa. This model enables realistic, high-speed aging effects on facial images without requiring face detection, making it ideal for real-time applications.
+# Face Aging with GANs
 
-Table of Contents
-Overview
-Examples
-Performance
-Quick Start
-Running Inference
-Training Your Own Model
-Data Preparation
-Configuring and Training
-Monitoring with TensorBoard
-Acknowledgments
-Overview
-Aging is a CycleGAN-based model designed for transforming young faces into older ones and vice versa. The model achieves high frame rates and can process images without requiring face detection, as long as the input contains a central face region of 256x256 within a 512x512 image.
+A deep learning model that uses CycleGAN to perform face aging transformations, allowing for realistic and high-speed aging effects on facial images. This model can age or rejuvenate facial images without requiring a face detection pipeline, making it ideal for real-time applications.
 
-Examples
-Top row: Input (young face)
-Bottom row: Output (aged face from GAN)
+## Table of Contents
 
+- [Overview](#overview)
+- [Examples](#examples)
+- [Performance](#performance)
+- [Quick Start](#quick-start)
+- [Running Inference](#running-inference)
+- [Training Your Own Model](#training-your-own-model)
+  - [Data Preparation](#data-preparation)
+  - [Configuring and Training](#configuring-and-training)
+- [Monitoring with TensorBoard](#monitoring-with-tensorboard)
+- [Acknowledgments](#acknowledgments)
 
+## Overview
 
-Performance
-Speed: 66 FPS on an NVIDIA GTX1080 for 512x512 images.
-Detection-Free: No need for a face detection pipeline; the model works with any 512x512 image containing a face of size 256x256 or larger.
-Quick Start
-Running Inference
-To apply the pre-trained model on your images:
+This model, built on CycleGAN, transforms young faces into aged versions and vice versa. It is optimized for processing 512x512 images with a 256x256 central face region, allowing high frame rates and eliminating the need for separate face detection.
 
-bash
-Copy code
+## Examples
+
+The examples below show the aging transformation:
+
+| Input (Young Face)       | Output (Aged Face)       |
+|--------------------------|--------------------------|
+| ![young_face_example]()  | ![aged_face_example]()   |
+
+## Performance
+
+- **Speed:** Achieves 66 FPS on NVIDIA GTX1080 for 512x512 images.
+- **Detection-Free:** No need for a face detection pipeline; it works on any 512x512 image containing a 256x256 or larger face region.
+
+## Quick Start
+
+### Running Inference
+
+To apply the pre-trained model to your images, run:
+
+```bash
 python infer.py --image_dir 'path/to/your/image/directory'
-Training Your Own Model
-Data Preparation
-To train Fast-AgingGAN, you’ll need to preprocess your dataset. Supported datasets include CACD and UTK Faces. Use the preprocessing scripts available in the preprocessing/ directory:
-
-Preprocess CACD Dataset:
-bash
-Copy code
-python preprocessing/preprocess_cacd.py --image_dir '/path/to/cacd/images' --metadata '/path/to/cacd/metadata/file' --output_dir 'path/to/save/processed/data'
-Preprocess UTK Faces Dataset:
-bash
-Copy code
-python preprocessing/preprocess_utk.py --data_dir '/path/to/utk/images' --output_dir 'path/to/save/processed/data'
-Configuring and Training
-Update Configurations: Modify configs/aging_gan.yaml to set the correct paths to your preprocessed data. Adjust other hyperparameters if needed.
-Run Training: Start the training process:
-bash
-Copy code
-python main.py
-Monitoring with TensorBoard
-To monitor the training progress, including loss values and generated images, use TensorBoard:
-
-bash
-Copy code
-tensorboard --logdir=lightning_logs --bind_all
-Acknowledgments
-This project is based on CycleGAN and leverages various face aging datasets, including CACD and UTK Faces. Special thanks to contributors in the deep learning and GANs community for making resources and datasets publicly available.
